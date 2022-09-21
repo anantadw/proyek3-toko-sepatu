@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const { validationResult } = require('express-validator')
 
 const getProducts = async (req, res) => {
     try {
@@ -16,6 +17,15 @@ const getProducts = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            message: 'Failed',
+            erros: errors.array()
+        })
+    }
+
     const newProduct = new Product(req.body)
 
     try {
@@ -81,6 +91,15 @@ const deleteProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            message: 'Failed',
+            erros: errors.array()
+        })
+    }
+    
     try {
         const options = {new: true}
         const product = await Product.findByIdAndUpdate(req.params.productId, req.body, options)
