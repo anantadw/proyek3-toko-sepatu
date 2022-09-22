@@ -1,4 +1,5 @@
 const { body } = require('express-validator')
+const Product = require('../models/Product');
 
 const validateProduct = [
     body('name')
@@ -6,7 +7,14 @@ const validateProduct = [
         .exists().withMessage('Name doesn\'t exist').bail()
         .notEmpty().withMessage('Name is required').bail()
         .isLength({min: 5}).withMessage('Name must be at least 5 characters').bail()
-        .isAlphanumeric(undefined, {ignore: '\s'}).withMessage('Name must contain only letter, number, and space'),
+        .isAlphanumeric(undefined, {ignore: '\s'}).withMessage('Name must contain only letter, number, and space')
+        .custom(value => {
+            return Product.findOne({name: value}).then(product => {
+                if (product) {
+                    return Promise.reject('Product already exists with given name')
+                }
+            })
+        }),
     body('price')
         .trim().escape()
         .exists().withMessage('Price doesn\'t exist').bail()

@@ -32,11 +32,11 @@ const addProduct = async (req, res) => {
         const addedProduct = await newProduct.save()
 
         res.status(201).json({
-            message: 'Product added successfully',
-            addedProduct: addedProduct
+            message: 'Product added successfully'
+            // addedProduct: addedProduct
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             message: 'Failed to add product: ' + error.message
         });
     }
@@ -80,11 +80,11 @@ const deleteProduct = async (req, res) => {
         }
 
         res.status(status).json({
-            message: message,
-            deletedProduct: deletedProduct
+            message: message
+            // deletedProduct: deletedProduct
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             message: 'Failed to delete product: ' + error.message
         })
     }
@@ -114,11 +114,11 @@ const updateProduct = async (req, res) => {
         }
 
         res.status(status).json({
-            message: message,
-            updatedProduct: product
+            message: message
+            // updatedProduct: product
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             message: 'Failed to delete product: ' + error.message
         })
     }
