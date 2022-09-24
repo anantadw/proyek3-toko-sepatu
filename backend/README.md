@@ -169,7 +169,7 @@ Dokumentasi penggunaan API pada aplikasi Backend.
     Terjadi karena kesalahan dari server.
 
 ## #4 Update Product
-  Memperbarui sebuah data sebuah produk berdasarkan `_id`.
+  Memperbarui sebuah data produk berdasarkan `_id`.
 
 * **URL**
   `http://{ip-address | localhost}:3000/api/update-product/:productId`

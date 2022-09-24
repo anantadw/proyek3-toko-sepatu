@@ -13,13 +13,13 @@ const apiRoute = require('./routes/api')
 app.use('/api', apiRoute)
 
 // connect to database
-mongoose.connect("mongodb://localhost/pertemuan5", { 
+mongoose.connect("mongodb+srv://andestta:L9DiTPnJUerttBZ3@cluster0.djaes2x.mongodb.net/?retryWrites=true&w=majority", { 
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
 const db = mongoose.connection
-db.on('error', (error)=> console.error(error))
+db.on('error', (error) => console.error(error))
 db.once('connected', () => console.log('Database Connected'))
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
