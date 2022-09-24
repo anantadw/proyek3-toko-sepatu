@@ -24,19 +24,23 @@ Dokumentasi penggunaan API pada aplikasi Backend.
         "message": "Success",
         "products": [
             {
-                "_id": "632b1cbfd34245f669134d08",
-                "name": "Nike Air Jordan 1 High",
-                "price": 3599990,
-                "stock": 31,
-                "createdAt": "2022-09-21T14:16:31.427Z",
-                "updatedAt": "2022-09-21T14:18:24.383Z",
-                "__v": 0,
-                "detail": "Brand New In Box, Color : Black White Red"
+              "_id": "632ee4f1a2020db56ef58934",
+              "name": "Converse One Star",
+              "price": 700000,
+              "stock": 59,
+              "detail": "Color: White Black",
+              "createdAt": "2022-09-24T11:07:29.214Z",
+              "updatedAt": "2022-09-24T14:38:58.040Z",
+              "__v": 0,
+              "image": "uploads\\1664030337991-converse-one.jpg"
             },
+            ...
             ...
         ]
     }
     ```
+    Field **_detail_** dan **_image_** opsional, data bisa tidak memiliki field tersebut.
+
     Berhasil mendapatkan data produk dan mengirim respon "products" berupa array of object dari produk dengan semua atributnya.
  
 * **Error Response :x:**
@@ -67,7 +71,10 @@ Dokumentasi penggunaan API pada aplikasi Backend.
   price : Numeric/Float (required)
   stock : Numeric/Integer (required)
   detail : String (optional)
+  image : File, accepts PNG/JPG/JPEG (optional)
   ```
+
+  Field **_detail_** dan **_image_** opsional, data bisa tidak memiliki field tersebut.
 
 * **Success Response :white_check_mark:**
   * **Status Code :** `201 Created`
@@ -188,7 +195,10 @@ Dokumentasi penggunaan API pada aplikasi Backend.
   price : Numeric/Float (required)
   stock : Numeric/Integer (required)
   detail : String (optional)
+  image : File, accepts PNG/JPG/JPEG (optional)
   ```
+  
+  Jika tidak mengirimkan **_detail_** atau **_image_**, data lama tersebut akan dihapus (jika ada).
 
 * **Success Response :white_check_mark:**
   * **Status Code :** `200 OK`
