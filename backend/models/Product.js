@@ -23,6 +23,9 @@ const ProductSchema = new Schema({
     detail: {
         type: String,
         trim: true
+    },
+    image : {
+        type: String
     }
 }, {timestamps: true})
 

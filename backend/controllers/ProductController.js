@@ -1,5 +1,7 @@
 const Product = require('../models/Product')
 const { validationResult } = require('express-validator')
+const fs = require('fs')
+const path = require('path')
 
 const getProducts = async (req, res) => {
     try {
@@ -26,13 +28,20 @@ const addProduct = async (req, res) => {
         })
     }
 
-    const newProduct = new Product(req.body)
+    const data = {
+        name: req.body.name,
+        price: req.body.price,
+        stock: req.body.stock,
+        detail: (req.body.detail && req.body.detail !== '') ? req.body.detail : undefined,
+        image: (req.file) ? req.file.path : undefined
+    }
+    const newProduct = new Product(data)
 
     try {
         const addedProduct = await newProduct.save()
 
         res.status(201).json({
-            message: 'Product added successfully'
+            message: 'Product added successfully',
             // addedProduct: addedProduct
         })
     } catch (error) {
@@ -68,19 +77,22 @@ const showProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const deletedProduct = await Product.findByIdAndDelete(req.params.productId)
-        let status, message
-
-        if (deletedProduct === null) {
-            status = 404
-            message = 'No data with given id'
-        } else {
-            status = 200
-            message = 'Product deleted successfully'
+        const product = await Product.findById(req.params.productId)
+        if (!product) {
+            return res.status(404).json({
+                message: 'No data with given id'
+            })
         }
 
-        res.status(status).json({
-            message: message
+        if (product.image) {
+            const filePath = path.join(__dirname, '../', product.image)
+            fs.unlink(filePath, (error) => console.log(error))
+        }
+
+        const deletedProduct = await Product.findByIdAndDelete(req.params.productId)
+
+        res.status(200).json({
+            message: 'Product deleted successfully'
             // deletedProduct: deletedProduct
         })
     } catch (error) {
@@ -99,22 +111,31 @@ const updateProduct = async (req, res) => {
             erros: errors.array()
         })
     }
-    
-    try {
-        const options = {new: true}
-        const product = await Product.findByIdAndUpdate(req.params.productId, req.body, options)
-        let status, message
 
-        if (product === null) {
-            status = 404
-            message = 'No data with given id'
-        } else {
-            status = 200
-            message = 'Product updated successfully'
+    try {
+        const product = await Product.findById(req.params.productId)
+        if (!product) {
+            return res.status(404).json({
+                message: 'No data with given id'
+            })
         }
 
-        res.status(status).json({
-            message: message
+        const oldImage = product.image
+        product.name = req.body.name
+        product.price = req.body.price
+        product.stock = req.body.stock
+        product.detail = (req.body.detail && req.body.detail !== '') ? req.body.detail : undefined
+        product.image = (req.file) ? req.file.path : undefined
+
+        if (oldImage) {
+            const filePath = path.join(__dirname, '../', oldImage)
+            fs.unlink(filePath, (error) => console.log(error))
+        }
+
+        await product.save()
+
+        res.status(200).json({
+            message: 'Product updated successfully'
             // updatedProduct: product
         })
     } catch (error) {
