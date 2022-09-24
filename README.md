@@ -8,9 +8,9 @@ Tim kami membuat aplikasi pengelolaan toko sepatu (oleh admin) yang terdapat ope
 
 ### Teknologi yang digunakan
 - Backend : Node.js dengan web framework Express.js dan database MongoDB.
-- Frontend : 
+- Frontend : HTML, CSS, dan Javascript
 
 ### Tim Pembuat
 Kelas 2A - D3 Teknik Informatika
 - Ananta Destawardhana | 211511004 | Backend
-- Devina Lusiana | 211511... | Frontend
+- Devina Lusiana | 211511011 | Frontend
