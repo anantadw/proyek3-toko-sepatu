@@ -41,4 +41,4 @@ Kelas 2A - D3 Teknik Informatika
   ```
 - Masuk ke **frontend** dan buka **index.html**.
 <br/><br/><br/><br/>
-Note: dokumentasi API (format GitHub) ada di file README dalam folder **backend**.
+Note: [dokumentasi API](backend/README.md) (format GitHub) ada di file README dalam folder **backend**.
